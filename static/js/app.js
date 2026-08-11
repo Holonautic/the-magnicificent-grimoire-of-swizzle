@@ -42,10 +42,52 @@ function loadShader(gl, type, source) {
   return shader;
 }
 
-function draw_swizzles(vsSource, fsSource) {
+/** @typedef Pipeline
+ * @property {object} gl
+ * @property {object} program
+ * @property {object} canvas
+ * @property {object} uniformLocations
+ * @property {object} uniformLocations.aspectRatio
+ * @property {object} uniformLocations.globalTime
+ */
+
+/**
+ *
+ * @param {object} gl
+ * @param {Pipeline} pipeline
+ */
+function render(pipeline, time) {
+
+  pipeline.canvas.width = window.innerWidth;
+  pipeline.canvas.height = window.innerHeight;
+
+  const gl = pipeline.gl;
+
+  gl.viewport(0, 0, pipeline.canvas.width, pipeline.canvas.height);
+
+  gl.clearColor(0.1, 0.1, 0.2, 1.0);
+  gl.clear(gl.COLOR_BUFFER_BIT);
+
+  gl.useProgram(pipeline.program);
+  gl.uniform1f(pipeline.uniformLocations.aspectRatio, window.visualViewport.width / window.visualViewport.height);
+  gl.uniform1f(pipeline.uniformLocations.globalTime, time * 0.001)
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+  requestAnimationFrame(time => render(pipeline, time));
+}
+
+/**
+ * @param {string} vsSource - vertex shader source
+ * @param {string} fsSource - fragment shader source
+ * @returns {Pipeline} shaderInfo
+ */
+function load_shaders(vsSource, fsSource) {
   const canvas = document.querySelector("#shader");
 
-  const gl = canvas.getContext("webgl2");
+  canvas.width = window.visualViewport.width;
+  canvas.height = window.visualViewport.height;
+
+  const gl = canvas.getContext("webgl2", { alpha: false });
 
   if (gl === null) return;
 
@@ -62,11 +104,19 @@ function draw_swizzles(vsSource, fsSource) {
     return;
   }
 
-  gl.clearColor(0.1, 0.1, 0.2, 1.0);
-  gl.clear(gl.COLOR_BUFFER_BIT);
+  const pipeline = {
+    gl: gl,
+    canvas: canvas,
+    program: shaderProgram,
+    uniformLocations: {
+      aspectRatio: gl.getUniformLocation(shaderProgram, "fAspectRatio"),
+      globalTime: gl.getUniformLocation(shaderProgram, "fGlobalTime"),
+    }
+  }
 
-  gl.useProgram(shaderProgram);
-  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  return pipeline;
 }
 
-draw_swizzles(quadVSSource, fsSource);
+const fsConcentric = fetch('/glsl/fs_concentric_swizzles.glsl').then(response => response.text());
+
+fsConcentric.then(fs => load_shaders(quadVSSource, fs)).then(pipeline => render(pipeline));
