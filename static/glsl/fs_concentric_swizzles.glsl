@@ -4,6 +4,7 @@ precision mediump float;
 
 uniform float fGlobalTime;
 uniform float fAspectRatio;
+uniform sampler2D texPreviousFrame;
 
 in vec2 uv;
 
@@ -359,10 +360,6 @@ void main(void)
 
   float layer = floor((puv.y) * layer_height + 1.0);
 
-  if (layer < 5.0) {
-    return;
-  }
-
   puv.x *= (2.0 / layer_height) * layer;
 
   float walk_time = fGlobalTime * layer;
@@ -391,37 +388,39 @@ void main(void)
   float front_fb = 0.07 * sin(front_leg_time);
   float back_fb = 0.07 * sin(back_leg_time);
 
-  for (int i = 0; i < TRI_COUNT; i++) {
-    vec2[3] pos = vec2[3](
-        tris[i].positions[0] * scale + offset,
-        tris[i].positions[1] * scale + offset,
-        tris[i].positions[2] * scale + offset
-      );
+  if (layer > 4.0) {
+    for (int i = 0; i < TRI_COUNT; i++) {
+      vec2[3] pos = vec2[3](
+          tris[i].positions[0] * scale + offset,
+          tris[i].positions[1] * scale + offset,
+          tris[i].positions[2] * scale + offset
+        );
 
-    for (int j = 0; j < 3; j++) {
-      pos[j] += tris[i].back_left_weight[j] * vec2(back_fb, back_left_offset)
-          + tris[i].front_left_weight[j] * vec2(front_fb, front_left_offset)
-          + tris[i].back_right_weight[j] * vec2(-back_fb, back_right_offset)
-          + tris[i].front_right_weight[j] * vec2(-front_fb, front_right_offset)
-          + tris[i].head_weight[j] * vec2(0.0, head_offset)
-          + tris[i].tail_weight[j] * vec2(0.0, tail_offset);
+      for (int j = 0; j < 3; j++) {
+        pos[j] += tris[i].back_left_weight[j] * vec2(back_fb, back_left_offset)
+            + tris[i].front_left_weight[j] * vec2(front_fb, front_left_offset)
+            + tris[i].back_right_weight[j] * vec2(-back_fb, back_right_offset)
+            + tris[i].front_right_weight[j] * vec2(-front_fb, front_right_offset)
+            + tris[i].head_weight[j] * vec2(0.0, head_offset)
+            + tris[i].tail_weight[j] * vec2(0.0, tail_offset);
+      }
+
+      float[3] e = float[3](
+          edge(puv, pos[1], pos[2]) / edge(pos[0], pos[1], pos[2]),
+          edge(puv, pos[2], pos[0]) / edge(pos[1], pos[2], pos[0]),
+          edge(puv, pos[0], pos[1]) / edge(pos[2], pos[0], pos[1])
+        );
+
+      if (e[0] > 0.0 && e[1] > 0.0 && e[2] > 0.0) {
+        //calculate barycentric coordinates
+        colour = e[0] * tris[i].colours[0]
+            + e[1] * tris[i].colours[1]
+            + e[2] * tris[i].colours[2];
+      }
     }
 
-    float[3] e = float[3](
-        edge(puv, pos[1], pos[2]) / edge(pos[0], pos[1], pos[2]),
-        edge(puv, pos[2], pos[0]) / edge(pos[1], pos[2], pos[0]),
-        edge(puv, pos[0], pos[1]) / edge(pos[2], pos[0], pos[1])
-      );
-
-    if (e[0] > 0.0 && e[1] > 0.0 && e[2] > 0.0) {
-      //calculate barycentric coordinates
-      colour = e[0] * tris[i].colours[0]
-          + e[1] * tris[i].colours[1]
-          + e[2] * tris[i].colours[2];
-    }
+    colour = hue_shift(colour, fGlobalTime + layer);
   }
-
-  colour = hue_shift(colour, fGlobalTime + layer);
 
   vec2 tunnel = vec2(0.5);
 
@@ -430,7 +429,7 @@ void main(void)
   const float FLAME_SPEED = 0.02;
   prev_uv += 0.1 * (noise_curl.yz * FLAME_SPEED + noise_curl.xy * FLAME_SPEED) / fAspectRatio;
 
-  //out_color = vec4(0.6 * colour, 1.0) + texture(texPreviousFrame, prev_uv) * 0.7;
-  out_color = vec4(colour, 1.0);
+  out_color = vec4(0.6 * colour, 1.0) + texture(texPreviousFrame, prev_uv) * 0.6;
+  //out_color = vec4(colour, 1.0);
   //out_color = vec4(uv,0.0, 1.0);
 }

@@ -1,48 +1,64 @@
 <!doctype html>
 <html lang="">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ config.title }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap"
+      rel="stylesheet"
+    />
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ config.title }}</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/frontpage.css" />
+    <meta name="description" content="" />
 
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/frontpage.css">
-  <meta name="description" content="">
+    <meta property="og:title" content="" />
+    <meta property="og:type" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="" />
 
-  <meta property="og:title" content="">
-  <meta property="og:type" content="">
-  <meta property="og:url" content="">
-  <meta property="og:image" content="">
+    <link rel="icon" href="/favicon.png" sizes="any" />
+    <link rel="apple-touch-icon" href="/icon.png" />
 
-  <link rel="icon" href="/favicon.png" sizes="any">
-  <link rel="apple-touch-icon" href="/icon.png">
+    <link rel="manifest" href="site.webmanifest" />
+    <meta name="theme-color" content="#fafafa" />
+  </head>
 
-  <link rel="manifest" href="site.webmanifest">
-  <meta name="theme-color" content="#fafafa">
-</head>
+  <body>
+    <canvas id="shader"></canvas>
 
-<body>
-  <canvas id="shader"></canvas>
-
-  <main>
+    <main>
       <h1>shaderland</h1>
       <h2>a creative-programming puzzle game</h2>
-      <p>// wire up <b>nodes</b></p>
-      <p>// create a world of <b>pixels</b></p>
-      <p>// guide polygonal <b>creatures</b></p>
-      <p>// learn <b>computer graphics</b></p>
-      <p>// follow <b>l1l1th</b></p>
-      <p>// a hacker // your friend // gone</p>
-      <p>// what <em>happened</em> to her?</p>
-      <p>// that's why you made the <b>ferret</b></p>
-  </main>
+      <article>
+        <section>
+          <p>// wire up <b>nodes</b></p>
+          <p>// create a world of <b>pixels</b></p>
+          <p>// guide polygonal <b>creatures</b></p>
+          <p>// learn <b>computer graphics</b></p>
+        </section>
+        <section>
+          <p>// follow <b>l1l1th</b></p>
+          <p>// a <b>hacker</b> // your <b>friend</b> // gone</p>
+          <p>
+            // what <b><em>happened</em></b> to her?
+          </p>
+          <div>
+            <p>// the <b>ferret</b> will find out...</p>
+            <p class="right">...won't she?</p>
+          </div>
+        </section>
+      </article>
+      <a
+        class="steam"
+        href="https://store.steampowered.com/app/4487340/Shaderland/"
+        >wishlist on steam</a
+      >
+    </main>
 
-  <script src="js/app.js"></script>
-
-</body>
-
+    <script src="js/app.js"></script>
+  </body>
 </html>
