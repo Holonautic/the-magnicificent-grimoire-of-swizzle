@@ -1,6 +1,6 @@
 #version 300 es
 
-precision mediump float;
+precision highp float;
 
 uniform float fGlobalTime;
 uniform float fAspectRatio;

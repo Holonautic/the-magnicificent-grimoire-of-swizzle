@@ -158,7 +158,11 @@ function create_pipeline(vsSource, fsSource) {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const gl = canvas.getContext("webgl2", { alpha: false });
+    const gl = canvas.getContext("webgl2", {
+        alpha: false,
+        antialias: false,
+        powerPreference: "high-performance",
+    });
 
     if (gl === null) return;
 
