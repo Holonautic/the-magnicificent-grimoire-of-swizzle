@@ -1,3 +1,5 @@
+@use "colours";
+
 body {
   background-color: black;
 }
@@ -45,22 +47,22 @@ main article {
 
 section:nth-child(1) p:nth-child(1) b,
 section:nth-child(2) p:nth-child(3) b {
-  color: #bef459;
+  color: colours.$accent1;
 }
 
 section:nth-child(1) p:nth-child(2) b,
 section:nth-child(2) p:nth-child(1) b {
-  color: #ff4e74;
+  color: colours.$accent2;
 }
 
 section:nth-child(1) p:nth-child(3) b,
 section:nth-child(2) p:nth-child(4) b {
-  color: #5be7ff;
+  color: colours.$accent3;
 }
 
 section:nth-child(1) p:nth-child(4) b,
 section:nth-child(2) p:nth-child(2) b {
-  color: #b310f0;
+  color: colours.$accent4;
 }
 
 .right {
