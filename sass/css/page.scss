@@ -1,0 +1,77 @@
+@use "colours";
+
+body {
+  background-color: colours.$bg;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Major Mono Display", monospace;
+  font-weight: 400;
+  color: colours.$accent2weak;
+}
+
+h1 {
+  text-align: center;
+  font-style: normal;
+  font-size: 300%;
+  margin-top: 0;
+}
+
+h2 {
+  font-size: 250%;
+  color: colours.$accent1;
+}
+
+h3 {
+  font-size: 200%;
+  color: colours.$accent7;
+}
+
+p {
+  font-family: "Solway", serif;
+  font-weight: 400;
+}
+
+body {
+  font-size: 21px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+a {
+  color: colours.$accent2weak;
+}
+
+a:hover {
+  color: colours.$accent2;
+}
+
+dfn {
+  color: colours.$accent1;
+}
+
+em {
+  color: colours.$accent6;
+}
+
+cite {
+  color: colours.$accent2;
+}
+
+blockquote {
+  font-weight: bold;
+  font-style: italic;
+}
+
+.name {
+  color: colours.$accent7;
+}
+
+main {
+  max-width: 1000px;
+  background-color: colours.$mainbg;
+  padding: 2em;
+}
