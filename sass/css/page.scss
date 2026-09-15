@@ -14,19 +14,33 @@ h3 {
 h1 {
   text-align: center;
   font-style: normal;
-  font-size: 300%;
+  font-size: 200%;
   margin-top: 0;
   color: colours.$accent2;
 }
 
 h2 {
-  font-size: 250%;
+  font-size: 150%;
   color: colours.$accent1;
 }
 
 h3 {
-  font-size: 200%;
+  font-size: 120%;
   color: colours.$accent7;
+}
+
+@media screen and (min-width: 750px) {
+  h1 {
+    font-size: 300%;
+  }
+
+  h2 {
+    font-size: 200%;
+  }
+
+  h3 {
+    font-size: 150%;
+  }
 }
 
 p {
