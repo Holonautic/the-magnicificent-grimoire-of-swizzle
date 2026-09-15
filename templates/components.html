@@ -1,0 +1,12 @@
+{% component image(path: string, alt: string) %} {% set mdata =
+get_image_metadata(path=path) %} {% set image = resize_image(path=path,
+width=1000, op="fit_width", format="webp") %} {% set image2x =
+resize_image(path=path, width=2000, op="fit_width", format="webp") %}
+<figure>
+  <img src="{{ image.url }}" srcset="{{ image2x.url }} 2x" alt="{{ alt }}" />
+</figure>
+{% endcomponent %}
+
+{% component youtube(id: string) %}
+<figure class="video"><div><iframe src="https://www.youtube-nocookie.com/embed/lr6t6wtdfQw?si=kUDN0P6s_PJLZHNR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div></figure>
+{% endcomponent %}

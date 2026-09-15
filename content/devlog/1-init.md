@@ -1,5 +1,5 @@
 +++
-title = "Present day, present time [welcome to shaderland]"
+title = "welcome to SHADERLAND"
 date = 2026-09-12
 +++
 You've found your way to the devlog for <cite>Shaderland</cite>! Delightful. We're glad to have you.
@@ -13,6 +13,8 @@ So what *is* Shaderland?
 <cite>Shaderland</cite> is a puzzle-programming game about computer graphics!
 
 It's a game where you create *shaders* using a node editor, which define a pattern of pixels. Then, a little autonomous creature, such as <span class="name">Swizzle</span> the ferret, walks on those pixels.
+
+{{<image path="img/screenshot-1.png" alt="The level select screen in Shaderland, showing a nest of twisty wires, Swizzle the ferret, and level gadgets to click on." /> }}
 
 By shaping the world with your shader, you can hopefully guide her to the goals... and get one step closer to finding out why <span class="name">L1l1th</span> built this strange world, and what happened to her.
 
@@ -32,13 +34,15 @@ If you're into game modding, you probably think of shaders as a way to add post-
 
 In the computer art subculture known as the [Demoscene](https://en.wikipedia.org/wiki/Demoscene), people practice a peculiar art called [shader livecoding](https://www.youtube.com/watch?v=AoMNbjxPMlY). For 25 or 60 minutes, a DJ spins some music while participants write a shader to create some kind of amazing effect.
 
+{{<youtube id="lr6t6wtdfQw" />}}
+
 When I first encountered this [at the Revision demoparty in 2025](https://canmom.art/adventure/demoscene/revision-2025), I thought it was just about the coolest thing ever. For the next year I joined [the shader jams](https://livecode.demozoo.org/serie/Monday_Night_Bytes.html) at [FieldFX](https://www.twitch.tv/fieldfxdemo) to get the hang of this esoteric art.
 
 These are 'fullscreen fragment shaders', also seen on websites like [Shadertoy](https://shadertoy.com/). The code here runs on every single pixel of an image, deciding for each one what colour it should be.
 
 Such a shader might run hundreds of millions of times every second. Within that, you can use all sorts of clever tricks: raymarching, fractal flames, cellular automata, physarum, quadtrees...
 
-However, this is just one type of shader. In fact, nearly every stage of computer graphics involves shaders doing some stuff. <dfn>Vertex shaders</dfn> calculate where triangles go on the screen. <dfn>Compute shaders</dfn> are used to create complex simulations. And that's before we get into the other, more esoteric kinds of shader used for tesselation, raytracing, and other such things. These include such nefarious characters as <dfn>closest hit shaders</dfn>, <dfn>mesh shaders</dfn>
+However, this is just one type of shader. In fact, nearly every stage of computer graphics involves shaders doing some stuff. <dfn>Vertex shaders</dfn> calculate where triangles go on the screen. <dfn>Compute shaders</dfn> are used to create complex simulations. And that's before we get into the other, more esoteric kinds of shader used for tesselation, raytracing, and other such things. These include such nefarious characters as <dfn>closest hit shaders</dfn>, <dfn>mesh shaders</dfn>, and [many others...](https://canmom.art/programming/graphics/glossary#supplemental-a-guide-to-shaders)
 
 Shaders are an incredibly powerful tool. The story of the last decade of programming is in large part the story of getting to grips with the massively parallel power of a GPU. But notoriously, they are also quite hard to learn.
 
@@ -64,35 +68,49 @@ So the initial seed of <cite>Shaderland</cite>, which arrived in a sudden flash 
 
 ## the creation of shaderland
 
-Shaderland is a solo-dev project, with the exception of music and sound created by my brilliant friend [Yuri Heart](https://www.twitch.tv/yuriheart). My colleagues at [Holonautic](https://www.holonautic.com/) have been very cool in allowing me to spend a year focusing all my time on this weird passion project, and given lots of helpful advice and testing, but I wrote all (at time of writing) 21,728 lines of code. (By hand, no AI thank you.)
+Shaderland is a solo-dev project, with the exception of music and sound created by my brilliant friend [Yuri Heart](https://www.twitch.tv/yuriheart).
 
-It's all written in the [Rust](https://rust-lang.org/) programming language, plus some [WGSL](https://www.w3.org/TR/WGSL/) for the shaders. I decided early on not to use a game engine. This is an unusual choice, and it did add some extra work creating things that a game engine would give you, but I think it's very worth it.
+To be clear this *is* actually my job! My colleagues at [Holonautic](https://www.holonautic.com/) have been really cool about giving space to spend a year focusing all my time on this weird passion project while they developed [<cite>Rail Estate</cite>](https://store.steampowered.com/app/3762240/Rail_Estate/), and lots of helpful advice and testing along the way. But I wrote all (at time of writing) 21,728 lines of code in this game. (By hand, no AI thank you.)
 
-No engine doesn't mean no libraries of course. Rust has a lot of very good projects which helped make Shaderland possible, some of the most important being [WGPU](https://wgpu.rs/) for abstracting over different graphics APIs (with its Naga compiler being particularly essential), the [Iced](https://iced.rs/) UI library as the scaffolding the game is built around, [Kira](https://github.com/tesselode/kira) for audio, and [petgraph](https://github.com/petgraph/petgraph) for representing Directed Acyclic Graphs.
+It's all written in the [Rust](https://rust-lang.org/) programming language, plus some [WGSL](https://www.w3.org/TR/WGSL/) for the shaders.
+
+I decided early on not to use a game engine. This is an unusual choice, and it did add some extra work creating things that a game engine would give you, but for this specific game, a game which is all about doing weird stuff with rendering APIs, it made sense.
+
+No engine doesn't mean no libraries of course. Rust has a lot of very good projects which helped make <cite>Shaderland</cite> possible, some of the most important being [WGPU](https://wgpu.rs/) for abstracting over different graphics APIs (with its Naga compiler being particularly essential), the [Iced](https://iced.rs/) UI library as the scaffolding the game is built around, [Kira](https://github.com/tesselode/kira) for audio, and [petgraph](https://github.com/petgraph/petgraph) for representing the Directed Acyclic Graphs that back up the node graphs in the game.
 
 ### nodes
 
-Traditionally, you define a program by writing a text file. But in the last couple decades, certain tools (for example, [Blender](https://www.blender.org/), [Graphite](https://graphite.art/), [Tixl](https://tixl.app/), [Notch](https://www.notch.one/), [Cables](https://cables.gl/), [Septabee](https://septabee.nekoweb.org/), [Houdini](https://www.sidefx.com/products/houdini/), [Unity](https://unity.com/) and [Unreal](https://www.unrealengine.com/)) brought in an alternative view of computation called a 'node editor'.
+Traditionally, you define a program by writing a text file. But in the last decade or so, certain tools (for example, [Blender](https://www.blender.org/), [Graphite](https://graphite.art/), [Tixl](https://tixl.app/), [Notch](https://www.notch.one/), [Cables](https://cables.gl/), [Septabee](https://septabee.nekoweb.org/), [Houdini](https://www.sidefx.com/products/houdini/), [Unity](https://unity.com/) and [Unreal](https://www.unrealengine.com/)) brought in an alternative view of computation, the node editor.
 
-Instead of writing source code in text form, you connect up nodes representing functions visually in a graph. Under the hood, this builds a DAG which can be compiled into a program.
+Instead of writing source code in text form, you connect up nodes representing functions visually in a graph. Under the hood, this builds a DAG which can be compiled into a program. In that regard, it's the same as a regular compiler, and only the frontend is different.
 
-Node editors have some advantages and some disadvantages. They can get painfully unwieldy. But they're a great starting point: easy to play around with, and they won't stop you dead in your tracks with a confusing syntax error. And they give you a very immediate, visceral sense of the *shape* of your program.
+{{<image path="img/screenshot-2.png" alt="A level in progress in Shaderland, with a connected up node graph and Swizzle walking." />}}
 
-The very first prototype of <cite>Shaderland</cite> had the player writing WGSL code directly. It proved the concept could work but, honestly, this was a game for people who already knew graphics programming. So <cite>Shaderland</cite> needed a node editor, like the ones in Blender and Unity. This was also a huge help to puzzle design, because I could much more easily restrict the tools available to the player: only certain functions, only certain numbers of those functions.
+Node editors have some advantages and some disadvantages. They can get painfully unwieldy. But they're a great starting point: easy to play around with, and they won't stop you dead in your tracks with a confusing syntax error. Most of all, they give you a very immediate, visceral sense of the *shape* of your program.
+
+The very first prototype of <cite>Shaderland</cite> had the player writing WGSL code directly. It proved the concept could work but, honestly, this was a game for people who already knew graphics programming.
+
+So <cite>Shaderland</cite> needed a node editor, like the ones in Blender and Unity. This was also a huge help to puzzle design, because I could much more easily restrict the tools available to the player: only certain functions, only certain numbers of those functions.
 
 There was no existing one that did exactly what I wanted, though, so I made my own. More on that in a future devlog =)
 
 ### a learning fractal
 
-At the time I started making <cite>Shaderland</cite>, I was still a beginner at Rust graphics programming. The tools I was using were pretty advanced ones, with tricky corners for the unwary. Or, as the dire warning on the Iced documentation puts it...
+At the time I started making <cite>Shaderland</cite>, I was still a beginner at Rust graphics programming. I had written [a simple 2D raytracer](https://canmom.art/programming/graphics/raytracer/) many years earlier, but now the tools I was using were pretty advanced ones, with tricky corners for the unwary. Or, as the dire warning on [the Iced documentation](https://docs.iced.rs/iced/) puts it...
 
 > The library leverages Rust to its full extent: ownership, borrowing, lifetimes, futures, streams, first-class functions, trait bounds, closures, and more. This documentation is not meant to teach you any of these. Far from it, it will assume you have **mastered** all of them.
 
-That paid off. I'm a much better Rust programmer now than I was when I started. So the means I'm using to make this game (learning graphics programming) are the same as the ends of the game itself (making graphics programming easier to learn).
+Well, I like a challenge. And I think it paid off pretty well: all of those things feel like second nature at this point. (At a certain point, functional languages like Haskell also became a lot more straightforward.)
+
+I'm a much better Rust programmer now than I was when I started. And this reflects something important about this project: the *means* I'm using to make this game (learning graphics programming) are the same as the *ends* of the game itself (making graphics programming easier to learn).
 
 Over the course of this devlog, I'll get into some of the challenges of that latter part. Because it's taken quite a bit of iteration to get the game comprehensible.
 
-The problem is this: in a puzzle programming game, you are dealing with the infinite world of [recursively enumerable language](https://en.wikipedia.org/wiki/Recursively_enumerable_language). Each puzzle is a huge, wide-open space which a player can very easily get lost in. So finding the right balance, teaching the concepts while keeping enough Zachtronics-style open-endedness to be interesting, has been *tricky*.
+In a puzzle programming game, you are dealing with the infinite world of [recursively enumerable language](https://en.wikipedia.org/wiki/Recursively_enumerable_language). Each puzzle is a huge, wide-open space which a player can very easily get lost in. So finding the right balance, teaching the concepts while keeping enough Zachtronics-style open-endedness to be interesting, has been *tricky*.
+
+Learning programming is akin to learning a natural language. We want the student to not just understand what expressions mean, but have the confidence to say *new* things, things we didn't teach them.
+
+Can <cite>Shaderland</cite> achieve that? I hope so...
 
 ### making the visuals
 
@@ -102,7 +120,7 @@ The look and feel of Shaderland evolved gradually. I knew I wanted it to feel ta
 
 Wires are also another major theme of the game. To interact with computational space is a way of touching infinity. I was heavily inspired by the power lines in <cite>Serial Experiments Lain</cite>, the nest of wires seen at the beginning of [<cite>Elephants Dream</cite>](https://orange.blender.org/) (an early Blender short film that was very formative on me in my teens), and the megastructures seen in the works of Tsutomu Nihei such as <cite>Blame!</cite>.
 
-I won't go into all the details of how wires are rendered, although it is building on the [divergence-free field rendering](https://github.com/MagnusThor/so-you-think-you-can-code-2025/tree/main/day20) effect I wrote in December 2025. The quadtree effect seen in the node editor builds on the work of demosceners like Flopine and NuSan. And there will be lots of other cool effects to see as the game develops =)
+I won't go into all the details of how wires are rendered, although it is building on the [divergence-free field rendering](https://canmom.art/programming/graphics/noodles) effect I wrote in December 2025. The quadtree effect seen in the node editor builds on the work of demosceners like Flopine and NuSan. And there will be lots of other cool effects to see as the game develops =)
 
 ### animating swizzle
 
@@ -126,7 +144,9 @@ It seems she left a trail, a path to try to understand her... by following in he
 
 This is not a game about suicide. It is a game about life and the weird forms that it takes. But, it is certainly informed by loss. Earlier this year, during the development of the game, [a friend in the hacker scene died by suicide](https://canmom.art/adventure/demoscene/mountainbytes-2026#in-memory-of-mem). Nora was not the first friend I've lost that way, either; I hold on to the memories of [Fall](https://canmom.art/fallrose/) who died some years before.
 
-Nora left various pieces of code and unfinished projects; a whole world that is now opaque and it will not get the chance to explain. And there are many such worlds. Every person carries inside them a unique model of their environment, and the power to create new worlds through language and the mysterious workings of the brain.
+Nora left various pieces of code and unfinished projects; a whole world that is now opaque and it will not get the chance to explain. And there are many such worlds. Every person carries inside them a unique model of their environment, and the power to create new worlds through language and the mysterious workings of brains.
+
+<cite>Shaderland</cite> is a story about those secret worlds. As Ryuukishi07 wrote, *without love, it cannot be seen*.
 
 Graphics programming, especially, is an art of conjuring. L1l1th is an occultist as well as a hacker, and as you get to know her and her menagerie of weird creatures over the course of this game, perhaps you'll get to understand her worldview...
 
@@ -142,10 +162,19 @@ Likewise, I would be highly remiss as a teacher of graphics if I stopped only at
 
 Also planned is the ability for players to create their own puzzles to challenge each other. For all the complex machinery in the game, a level is just allowed nodes and some goals. I would love to see what people can cook up.
 
-The game is planned to go into Early Access towards the end of the year. All feedback is extremely welcome. In the meantime, I'll keep this site updated to give you a sense for what's going on.
+The game is planned to go into Early Access towards the end of the year. All feedback is extremely welcome: you can contact me on [Fedi](https://icosahedron.website/@canmom), [Bluesky](https://bsky.app/profile/canmom.art), [Tumblr](https://canmom.tumblr.com), the [Steam forum for the game](https://steamcommunity.com/app/4487340/discussions/1/), or [email](mailto:bryn@canmom.art). In the meantime, I'll keep this site updated to give you a sense for what's going on.
 
 ## demo feedback
 
-The demo's been out on Steam for a few days now, and I'm extremely grateful for all the interest and feedback it's received already!
+[The demo's been out on Steam](https://store.steampowered.com/app/4487340/Shaderland/) for a few days now, and I'm extremely grateful for all the interest and feedback it's received already!
 
-The biggest issues people have encountered have been a scaling issue causing the editor to be squashed on certain aspect ratios, and problems navigating on laptops which don't have a middle mouse button. Both of these should be addressed in the next update.
+Here are some known issues from the playtesting:
+ - on computers without a middle mouse button (e.g. laptops), it is impossible to navigate the level select screen
+ - two-finger trackpad scrolling does not work on some laptops
+ - the scene scales inappropriately with UI scaling, causing the editor to be squashed and tutorial text to overlap on some screens
+ - it is not obvious how to access settings from the launch screen
+ - switching monitors should be easier
+ - adjusting numeric values is fiddly, and may be unintuitive
+ - one Windows user reported the game did not launch
+
+ The next demo update should address most of these issues!
