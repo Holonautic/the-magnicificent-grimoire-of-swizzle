@@ -124,11 +124,11 @@ I won't go into all the details of how wires are rendered, although it is buildi
 
 ### animating swizzle
 
-In early versions of Shaderland, before the story started to develop, the character was just a little triangle person who looked like this:
+In early versions of Shaderland, before the story started to develop, the character was just a little triangle person. This is the version seen at the Evoke demoparty in 2025...
 
-[image]
+{{<image path="img/evoke-2025.png" alt="A screenshot of the version of Shaderland seen at Evoke 2025, with a much earlier version of the node editor." />}}
 
-Of course, that wouldn't do. Yuri was the one to suggest that the character could be a ferret, and suggest the default name Swizzle. I loved this, and so I made a model of Swizzle in Blender. Just a handful of triangles with a distinctive origami look.
+Of course, that wouldn't do. Yuri was the one to suggest that the character could be a ferret, and suggest the default name Swizzle. I loved this, and so I made a model of Swizzle in Blender. Just a handful of triangles with an origami look (nearly all of Swizzle's triangles are in her eyes).
 
 To animate Swizzle, everything needed to follow procedurally from the cellular automaton. Swizzle is actually controlled by only six bones: four for the feet, and two for the head and tail. By careful weight painting, the rest of Swizzle's body follows naturally from the placement of the feet. I take the series of points that the automaton walks along and keep track of which foot is grounded, which makes it possible to calculate the rest of these bones entirely procedurally.
 
