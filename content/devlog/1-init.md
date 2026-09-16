@@ -153,7 +153,7 @@ Graphics programming, especially, is an art of conjuring. L1l1th is an occultist
 
 ### the Revision 2026 demo
 
-In April 2026, I presented a demoscene <dfn>demo</dfn> based on <cite>Shaderland</cite> at the Revision demoparty in Saarbrücken, called [<cite>Shaderland: Swizzle's Journey</cite>](https://www.pouet.net/prod.php?which=105998).
+In April 2026, I presented a demoscene <dfn>demo</dfn> based on <cite>Shaderland</cite> at the Revision demoparty in Saarbrücken, called [<cite>Shaderland: Swizzle's Journey</cite>](https://www.pouet.net/prod.php?which=105998). A 'demo' in this sense is essentially a program which creates a music video, by rendering an animation in realtime.
 
 {{<youtube id="d-o_N31lrQ0" />}}
 
@@ -162,6 +162,8 @@ This required building an animation system on top of the game, allowing me to sc
 The animation system is a little too jank to make accessible in the game at the moment, but I hope it shows some of the potential of this game for live performance and use as an art tool!
 
 ## what comes after the demo?
+
+A few months later came the actual game demo (it is confusing how this subculture overloads the word emo!). First seen at the [EMF hacker camp](https://www.emfcamp.org/) and then, in more developed form, at [Evoke 2026](https://2026.evoke.eu/) and the [Fantoche festival](https://www.fantoche.ch/)... and now at last it's [on Steam](https://store.steampowered.com/app/4487340/Shaderland/)!
 
 Making the demo involved building most of the systems the full game will need. The fancy UI, the compiler and automaton at the heart of it, all the systems for loading level definitions. But where is it going?
 
