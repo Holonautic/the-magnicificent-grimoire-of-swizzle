@@ -70,20 +70,23 @@ section:nth-child(2) p:nth-child(2) b {
   margin-top: 0;
 }
 
-a.steam {
-  background: linear-gradient(#ff75a3, #f4a182);
+a.button {
+  background: linear-gradient(colours.$button1, colours.$button2);
   color: black;
   font-size: 2vw;
   border: 3px solid black;
   border-radius: 0.5vw;
   font-family: monospace;
-  margin: 2vw;
   padding: 0.5vw 2vw;
   text-decoration: none;
 }
 
-a.steam:hover {
-  background: linear-gradient(#4a1932, #4d3229);
+a.button.steam {
+  margin: 2vw;
+}
+
+a.button:hover {
+  background: linear-gradient(colours.$button1dark, colours.$button2dark);
   border: 3px solid white;
   color: white;
 }

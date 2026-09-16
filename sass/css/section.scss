@@ -1,0 +1,56 @@
+@use "colours";
+
+body {
+  height: 100vh;
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+}
+
+nav a:hover {
+  color: colours.$accent2weak;
+}
+
+nav a article {
+  border-left: 4px solid white;
+  padding-left: 30px;
+  background-color: rgba(255 255 255 / 10%);
+}
+
+nav a:hover article {
+  border-left: 4px solid colours.$accent2;
+  background: linear-gradient(
+    change-color($color: colours.$accent5, $alpha: 0.2),
+    change-color($color: colours.$accent5, $alpha: 0.1)
+  );
+}
+
+nav a article h1 {
+  font-size: 150%;
+  color: colours.$accent2weak;
+  text-align: left;
+}
+
+nav a time {
+  font-size: 80%;
+}
+
+nav a:hover time {
+  color: colours.$accent3;
+}
+
+@media screen and (min-width: 800px) {
+  nav a time {
+    float: right;
+    margin-right: 20px;
+    margin-top: 15px;
+  }
+}
+
+nav a:hover article h1 {
+  font-size: 150%;
+  color: colours.$accent1;
+  text-align: left;
+}

@@ -1,36 +1,20 @@
-<!doctype html>
-<html lang="">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{ page.title }}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Solway:wght@300;400;500;700;800&display=swap"
-      rel="stylesheet"
-    />
-
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/page.css" />
-    <meta name="description" content="" />
-
-    <meta property="og:title" content="" />
-    <meta property="og:type" content="" />
-    <meta property="og:url" content="" />
-    <meta property="og:image" content="" />
-
-    <link rel="icon" href="/favicon.png" sizes="any" />
-    <link rel="apple-touch-icon" href="/icon.png" />
-
-    <link rel="manifest" href="site.webmanifest" />
-    <meta name="theme-color" content="#fafafa" />
-  </head>
-
-  <body>
-    <main>
-      <h1>{{ page.title }}</h1>
-      {{ page.content | safe }}
-    </main>
-  </body>
-</html>
+{% extends "base.html" %}
+{% block title %}{{ page.title}}{% endblock title %}
+{% block css %}
+<link rel="stylesheet" href="/css/page.css" />
+{% endblock css %}
+{% block description %}{{ page.description }}{% endblock
+description %}
+{% block fonts %}Major+Mono+Display&family=Solway:wght@300;400;500;700;800{% endblock fonts %}
+{% block opengraph %}
+<meta property="og:title" content="{{ page.title }}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{current_url}}" />
+<meta property="og:image" content="{{ config.base_url }}/img/og_image.png" />
+{% endblock %}
+{% block content %}
+<main>
+  <h1>{{ page.title }}</h1>
+  {{ page.content | replace(from="---",to="—") | safe }}
+</main>
+{% endblock content %}

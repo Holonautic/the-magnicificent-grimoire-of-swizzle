@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}{{ config.title }}{% endblock title %}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family={% block fonts %}Major+Mono+Display{% endblock fonts %}&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/css/style.css" />
+    {% block css %}
+    <link rel="stylesheet" href="/css/frontpage.css" />
+    {% endblock css %}
+
+    <meta
+      name="description"
+      content="{% block description %}A puzzle-programming game to build computer graphics in your head.{% endblock description %}"
+    />
+
+    {% block opengraph %}
+    <meta property="og:title" content="{{ config.title }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{current_url}}" />
+    <meta
+      property="og:image"
+      content="{{ config.base_url }}/img/og_image.png"
+    />
+    {% endblock opengraph %}
+
+    <link rel="icon" href="/favicon.png" sizes="any" />
+    <link rel="apple-touch-icon" href="/icon.png" />
+
+    <link rel="manifest" href="site.webmanifest" />
+    <meta name="theme-color" content="#ff4e74" />
+  </head>
+
+  <body>
+    {% block content %} {% endblock content %}
+  </body>
+</html>

@@ -1,10 +1,11 @@
 +++
 title = "welcome to SHADERLAND"
+description = "introducing <cite>Shaderland</cite>, a graphics-programming puzzle game"
 date = 2026-09-12
 +++
 You've found your way to the devlog for <cite>Shaderland</cite>! Delightful. We're glad to have you.
 
-Shaderland's popped up here and there, at demoparties and hacker camps. But at this point, 15 months into this mad project, it's about time I had a real writeup, isn't it?
+Shaderland's popped up here and there, at demoparties and hacker camps and now [a demo on Steam](https://store.steampowered.com/app/4487340/Shaderland/). But at this point, 15 months into this mad project, it's about time I had a real writeup, isn't it?
 
 So what *is* Shaderland?
 
@@ -36,7 +37,7 @@ In the computer art subculture known as the [Demoscene](https://en.wikipedia.org
 
 {{<youtube id="lr6t6wtdfQw" />}}
 
-When I first encountered this [at the Revision demoparty in 2025](https://canmom.art/adventure/demoscene/revision-2025), I thought it was just about the coolest thing ever. For the next year I joined [the shader jams](https://livecode.demozoo.org/serie/Monday_Night_Bytes.html) at [FieldFX](https://www.twitch.tv/fieldfxdemo) to get the hang of this esoteric art.
+When I first encountered this [at the Revision demoparty in 2025](https://canmom.art/adventure/demoscene/revision-2025), I thought it was just about the coolest thing ever. For the next year I joined [the shader jams](https://livecode.demozoo.org/serie/Monday_Night_Bytes.html) at [FieldFX](https://www.twitch.tv/fieldfxdemo) to get the hang of this esoteric art. The next year I made it up on stage (that's me in the first round!).
 
 These are 'fullscreen fragment shaders', also seen on websites like [Shadertoy](https://shadertoy.com/). The code here runs on every single pixel of an image, deciding for each one what colour it should be.
 
@@ -149,6 +150,16 @@ Nora left various pieces of code and unfinished projects; a whole world that is 
 <cite>Shaderland</cite> is a story about those secret worlds. As Ryuukishi07 wrote, *without love, it cannot be seen*.
 
 Graphics programming, especially, is an art of conjuring. L1l1th is an occultist as well as a hacker, and as you get to know her and her menagerie of weird creatures over the course of this game, perhaps you'll get to understand her worldview...
+
+### the Revision 2026 demo
+
+In April 2026, I presented a demoscene <dfn>demo</dfn> based on <cite>Shaderland</cite> at the Revision demoparty in Saarbrücken, called [<cite>Shaderland: Swizzle's Journey</cite>](https://www.pouet.net/prod.php?which=105998).
+
+{{<youtube id="d-o_N31lrQ0" />}}
+
+This required building an animation system on top of the game, allowing me to scrub the timeline and record events such as the creation and connection of nodes. Whenever the node graph changes, the shader changes underneath. The simulation of the ferrets is carried out beginning to end when the demo first opens, and re-run from the beginning whenever I change something.
+
+The animation system is a little too jank to make accessible in the game at the moment, but I hope it shows some of the potential of this game for live performance and use as an art tool!
 
 ## what comes after the demo?
 

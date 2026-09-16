@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block css %}
+<link rel="stylesheet" href="/css/page.css" />
+<link rel="stylesheet" href="/css/section.css" />
+{% endblock css %}
+{% block content %}
+<main>
+  <h1>{{ section.title }}</h1>
+<nav>
+    {% for page in section.pages %}
+    <a href="{{ page.path }}"><article>
+      <time datetime="{{ page.date }}">{{ page.date | date(format="%d %B %Y") }}</time>
+      <h1>{{page.title}}</h1>
+      <p>{{ page.description | safe }}</p>
+    </article></a>
+    {% endfor %}
+</nav>
+</main>
+{% endblock
+content %}
