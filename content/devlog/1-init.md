@@ -33,7 +33,7 @@ But maybe that doesn't paint the whole picture, and 'all of graphics' is too vag
 
 If you're into game modding, you probably think of shaders as a way to add post-processing effects to your games, kind of like a filter. But that's just scratching the surface.
 
-In the computer art subculture known as the [Demoscene](https://en.wikipedia.org/wiki/Demoscene), people practice a peculiar art called [shader livecoding](https://www.youtube.com/watch?v=AoMNbjxPMlY). For 25 or 60 minutes, a DJ spins some music while participants write a shader to create some kind of amazing effect.
+In the computer art subculture known as the [Demoscene](https://en.wikipedia.org/wiki/Demoscene), people practice a peculiar art called [shader livecoding](https://www.youtube.com/watch?v=AoMNbjxPMlY). For 25 or 60 minutes, a DJ spins some music while participants write a shader to create some kind of (hopefully!) amazing effect.
 
 {{<youtube id="lr6t6wtdfQw" />}}
 
