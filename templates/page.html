@@ -1,20 +1,18 @@
-{% extends "base.html" %}
-{% block title %}{{ page.title}}{% endblock title %}
+{% extends "base.html" %} {% block title %}{{ page.title}}{% endblock title %}
 {% block css %}
 <link rel="stylesheet" href="/css/page.css" />
-{% endblock css %}
-{% block description %}{{ page.description }}{% endblock
-description %}
-{% block fonts %}Major+Mono+Display&family=Solway:wght@300;400;500;700;800{% endblock fonts %}
+{% endblock css %} {% block description %}{{ page.description }}{% endblock
+description %} {% block fonts
+%}Major+Mono+Display&family=Solway:wght@300;400;500;700;800{% endblock fonts %}
 {% block opengraph %}
 <meta property="og:title" content="{{ page.title }}" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{{current_url}}" />
 <meta property="og:image" content="{{ config.base_url }}/img/og_image.png" />
-{% endblock %}
-{% block content %}
+{% endblock %} {% block content %}
 <main>
   <h1>{{ page.title }}</h1>
-  {{ page.content | replace(from="---",to="—") | safe }}
+  {% set toc = <toc /> %} {{ page.content | replace(from="---",to="—")| safe |
+  replace(from="<toc />",to=toc) }}
 </main>
 {% endblock content %}

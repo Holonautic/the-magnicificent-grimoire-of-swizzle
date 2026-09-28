@@ -9,6 +9,8 @@ Shaderland's popped up here and there, at demoparties and hacker camps and now [
 
 So what *is* Shaderland?
 
+<toc />
+
 ## shaderland
 
 <cite>Shaderland</cite> is a puzzle-programming game about computer graphics!
