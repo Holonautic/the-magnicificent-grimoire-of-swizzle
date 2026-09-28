@@ -16,12 +16,11 @@
     <link rel="stylesheet" href="/css/style.css" />
     {% block css %}
     <link rel="stylesheet" href="/css/frontpage.css" />
-    {% endblock css %}
+    {% endblock css %} {% set description | regex_replace(pattern=`&lt;.+?&gt;`,
+    rep=``) %}{% block description %}A puzzle-programming game to build computer
+    graphics in your head.{% endblock description %}{% endset %}
 
-    <meta
-      name="description"
-      content="{% block description %}A puzzle-programming game to build computer graphics in your head.{% endblock description %}"
-    />
+    <meta name="description" content="{{ description  }}" />
 
     {% block opengraph %}
     <meta property="og:title" content="{{ config.title }}" />
@@ -32,6 +31,7 @@
       content="{{ config.base_url }}/img/og_image.png"
     />
     {% endblock opengraph %}
+    <meta property="og:description" content="{{ description }}" />
 
     <link rel="icon" href="/favicon.png" sizes="any" />
     <link rel="apple-touch-icon" href="/icon.png" />
