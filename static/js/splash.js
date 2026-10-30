@@ -15,18 +15,6 @@ void main() {
 }
 `;
 
-const fsSource = `#version 300 es
-  precision mediump float;
-
-  in vec2 uv;
-
-  out vec4 fragColor;
-
-  void main() {
-    fragColor = vec4(0.3, 0.1, 0.1 + 0.2 * uv.y, 1.0);
-  }
-`;
-
 function loadShader(gl, type, source) {
     const shader = gl.createShader(type);
 

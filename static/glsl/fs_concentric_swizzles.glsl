@@ -15,14 +15,18 @@ float edge(in vec2 p, in vec2 p0, in vec2 p1) {
 }
 
 struct Triangle {
-  vec2[3] positions;
-  vec3[3] colours;
-  float[3] back_left_weight;
-  float[3] back_right_weight;
-  float[3] front_left_weight;
-  float[3] front_right_weight;
-  float[3] head_weight;
-  float[3] tail_weight;
+  vec3 back_left_weight;
+  vec3 back_right_weight;
+  vec3 front_left_weight;
+  vec3 front_right_weight;
+  vec3 head_weight;
+  vec3 tail_weight;
+  vec2 pos0;
+  vec2 pos1;
+  vec2 pos2;
+  vec3 col0;
+  vec3 col1;
+  vec3 col2;
 };
 
 const int TRI_COUNT = 11;
@@ -30,215 +34,127 @@ const int TRI_COUNT = 11;
 const Triangle tris[TRI_COUNT] = Triangle[](
     //tail
     Triangle(
-      vec2[3](
-        vec2(-2.785, 1.043),
-        vec2(-4.092, 0.780),
-        vec2(-4.381, 0.022)
-      ),
-      vec3[3](
-        vec3(0.510, 0.265, 0.768),
-        vec3(0.408, 0.160, 0.757),
-        vec3(0.437, 0.039, 0.757)
-      ),
-      float[3](0.488, 0.0, 0.0),
-      float[3](0.488, 0.0, 0.0),
-      float[3](0.012, 0.0, 0.0),
-      float[3](0.012, 0.0, 0.0),
-      float[3](0.0, 0.0, 0.0),
-      float[3](0.0, 1.0, 1.0)
+      vec3(0.488, 0.0, 0.0),
+      vec3(0.488, 0.0, 0.0),
+      vec3(0.012, 0.0, 0.0),
+      vec3(0.012, 0.0, 0.0),
+      vec3(0.0, 0.0, 0.0),
+      vec3(0.0, 1.0, 1.0),
+      vec2(-2.785, 1.043), vec2(-4.092, 0.780), vec2(-4.381, 0.022),
+      vec3(0.510, 0.265, 0.768), vec3(0.408, 0.160, 0.757), vec3(0.437, 0.039, 0.757)
     ),
     //back leg back left
     Triangle(
-      vec2[3](
-        vec2(-2.715, 1.124),
-        vec2(-1.613, 1.852),
-        vec2(-1.996, 0.026)
-      ),
-      vec3[3](
-        vec3(0.255, 0.132, 0.384),
-        vec3(0.255, 0.132, 0.384),
-        vec3(0.198, 0.033, 0.108)
-      ),
-      float[3](0.488, 0.488, 0.977),
-      float[3](0.488, 0.488, 0.0),
-      float[3](0.012, 0.012, 0.23),
-      float[3](0.012, 0.012, 0.0),
-      float[3](0.0, 0.0, 0.0),
-      float[3](0.0, 0.0, 0.0)
+      vec3(0.488, 0.488, 0.977),
+      vec3(0.488, 0.488, 0.0),
+      vec3(0.012, 0.012, 0.23),
+      vec3(0.012, 0.012, 0.0),
+      vec3(0.0, 0.0, 0.0),
+      vec3(0.0, 0.0, 0.0),
+      vec2(-2.715, 1.124), vec2(-1.613, 1.852), vec2(-1.996, 0.026),
+      vec3(0.255, 0.132, 0.384), vec3(0.255, 0.132, 0.384), vec3(0.198, 0.033, 0.108)
     ),
     //back leg front left
     Triangle(
-      vec2[3](
-        vec2(-1.898, 0.280),
-        vec2(-1.575, 1.863),
-        vec2(-0.838, 1.459)
-      ),
-      vec3[3](
-        vec3(0.315, 0.145, 0.208),
-        vec3(0.187, 0.155, 0.453),
-        vec3(0.255, 0.132, 0.384)
-      ),
-      float[3](0.910, 0.487, 0.165),
-      float[3](0.067, 0.487, 0.165),
-      float[3](0.022, 0.013, 0.335),
-      float[3](0.002, 0.013, 0.335),
-      float[3](0.0, 0.0, 0.0),
-      float[3](0.0, 0.0, 0.0)
+      vec3(0.910, 0.487, 0.165),
+      vec3(0.067, 0.487, 0.165),
+      vec3(0.022, 0.013, 0.335),
+      vec3(0.002, 0.013, 0.335),
+      vec3(0.0, 0.0, 0.0),
+      vec3(0.0, 0.0, 0.0),
+      vec2(-1.898, 0.280), vec2(-1.575, 1.863), vec2(-0.838, 1.459),
+      vec3(0.315, 0.145, 0.208), vec3(0.187, 0.155, 0.453), vec3(0.255, 0.132, 0.384)
     ),
 
     //front leg left
     Triangle(
-      vec2[3](
-        vec2(-1.267, 0.906),
-        vec2(-0.002, 0.003),
-        vec2(-0.819, 1.409)
-      ),
-      vec3[3](
-        vec3(0.172, 0.092, 0.255),
-        vec3(0.185, 0.031, 0.100),
-        vec3(0.086, 0.075, 0.379)
-      ),
-      float[3](0.531, 0.002, 0.170),
-      float[3](0.142, 0.000, 0.170),
-      float[3](0.189, 0.998, 0.330),
-      float[3](0.138, 0.000, 0.330),
-      float[3](0.0, 0.0, 0.0),
-      float[3](0.0, 0.0, 0.0)
+      vec3(0.531, 0.002, 0.170),
+      vec3(0.142, 0.000, 0.170),
+      vec3(0.189, 0.998, 0.330),
+      vec3(0.138, 0.000, 0.330),
+      vec3(0.0, 0.0, 0.0),
+      vec3(0.0, 0.0, 0.0),
+      vec2(-1.267, 0.906), vec2(-0.002, 0.003), vec2(-0.819, 1.409),
+      vec3(0.172, 0.092, 0.255), vec3(0.185, 0.031, 0.100), vec3(0.086, 0.075, 0.379)
     ),
     //back leg back right
     Triangle(
-      vec2[3](
-        vec2(-2.715, 1.124),
-        vec2(-1.613, 1.852),
-        vec2(-1.996, 0.026)
-      ),
-      vec3[3](
-        vec3(0.510, 0.265, 0.768),
-        vec3(0.510, 0.265, 0.768),
-        vec3(0.396, 0.067, 0.214)
-      ),
-      float[3](0.488, 0.488, 0.0),
-      float[3](0.488, 0.488, 0.977),
-      float[3](0.012, 0.012, 0.0),
-      float[3](0.012, 0.012, 0.23),
-      float[3](0.0, 0.0, 0.0),
-      float[3](0.0, 0.0, 0.0)
+      vec3(0.488, 0.488, 0.0),
+      vec3(0.488, 0.488, 0.977),
+      vec3(0.012, 0.012, 0.0),
+      vec3(0.012, 0.012, 0.23),
+      vec3(0.0, 0.0, 0.0),
+      vec3(0.0, 0.0, 0.0),
+      vec2(-2.715, 1.124), vec2(-1.613, 1.852), vec2(-1.996, 0.026),
+      vec3(0.510, 0.265, 0.768), vec3(0.510, 0.265, 0.768), vec3(0.396, 0.067, 0.214)
     ),
 
     //back leg front right
     Triangle(
-      vec2[3](
-        vec2(-1.898, 0.280),
-        vec2(-1.575, 1.863),
-        vec2(-0.838, 1.459)
-      ),
-      vec3[3](
-        vec3(0.629, 0.290, 0.415),
-        vec3(0.373, 0.310, 0.906),
-        vec3(0.510, 0.265, 0.768)
-      ),
-      float[3](0.070, 0.487, 0.165),
-      float[3](0.906, 0.487, 0.165),
-      float[3](0.002, 0.013, 0.335),
-      float[3](0.022, 0.013, 0.335),
-      float[3](0.0, 0.0, 0.0),
-      float[3](0.0, 0.0, 0.0)
+      vec3(0.070, 0.487, 0.165),
+      vec3(0.906, 0.487, 0.165),
+      vec3(0.002, 0.013, 0.335),
+      vec3(0.022, 0.013, 0.335),
+      vec3(0.0, 0.0, 0.0),
+      vec3(0.0, 0.0, 0.0),
+      vec2(-1.898, 0.280), vec2(-1.575, 1.863), vec2(-0.838, 1.459),
+      vec3(0.629, 0.290, 0.415), vec3(0.373, 0.310, 0.906), vec3(0.510, 0.265, 0.768)
     ),
 
     //front leg right
     Triangle(
-      vec2[3](
-        vec2(-1.267, 0.906),
-        vec2(-0.002, 0.003),
-        vec2(-0.819, 1.409)
-      ),
-      vec3[3](
-        vec3(0.510, 0.265, 0.768),
-        vec3(0.396, 0.067, 0.214),
-        vec3(0.510, 0.265, 0.768)
-      ),
-      float[3](0.142, 0.000, 0.170),
-      float[3](0.531, 0.002, 0.170),
-      float[3](0.138, 0.000, 0.330),
-      float[3](0.189, 0.998, 0.330),
-      float[3](0.0, 0.0, 0.0),
-      float[3](0.0, 0.0, 0.0)
+      vec3(0.142, 0.000, 0.170),
+      vec3(0.531, 0.002, 0.170),
+      vec3(0.138, 0.000, 0.330),
+      vec3(0.189, 0.998, 0.330),
+      vec3(0.0, 0.0, 0.0),
+      vec3(0.0, 0.0, 0.0),
+      vec2(-1.267, 0.906), vec2(-0.002, 0.003), vec2(-0.819, 1.409),
+      vec3(0.510, 0.265, 0.768), vec3(0.396, 0.067, 0.214), vec3(0.510, 0.265, 0.768)
     ),
     //neck 1
     Triangle(
-      vec2[3](
-        vec2(-0.319, 0.663),
-        vec2(-0.781, 1.425),
-        vec2(0.393, 1.306)
-      ),
-      vec3[3](
-        vec3(0.396, 0.067, 0.214),
-        vec3(0.272, 0.439, 0.633),
-        vec3(0.566, 0.149, 0.476)
-      ),
-      float[3](0.076, 0.174, 0.0),
-      float[3](0.076, 0.174, 0.0),
-      float[3](0.145, 0.326, 0.0),
-      float[3](0.705, 0.326, 0.0),
-      float[3](0.0, 0.0, 1.0),
-      float[3](0.0, 0.0, 0.0)
+      vec3(0.076, 0.174, 0.0),
+      vec3(0.076, 0.174, 0.0),
+      vec3(0.145, 0.326, 0.0),
+      vec3(0.705, 0.326, 0.0),
+      vec3(0.0, 0.0, 1.0),
+      vec3(0.0, 0.0, 0.0),
+      vec2(-0.319, 0.663), vec2(-0.781, 1.425), vec2(0.393, 1.306),
+      vec3(0.396, 0.067, 0.214), vec3(0.272, 0.439, 0.633), vec3(0.566, 0.149, 0.476)
     ),
     //neck 2
     Triangle(
-      vec2[3](
-        vec2(-0.781, 1.425),
-        vec2(0.393, 1.306),
-        vec2(0.465, 1.631)
-      ),
-      vec3[3](
-        vec3(0.272, 0.439, 0.633),
-        vec3(0.566, 0.149, 0.476),
-        vec3(0.567, 0.223, 0.584)
-      ),
-      float[3](0.174, 0.0, 0.0),
-      float[3](0.174, 0.0, 0.0),
-      float[3](0.326, 0.0, 0.0),
-      float[3](0.326, 0.0, 0.0),
-      float[3](0.0, 1.0, 1.0),
-      float[3](0.0, 0.0, 0.0)
+      vec3(0.174, 0.0, 0.0),
+      vec3(0.174, 0.0, 0.0),
+      vec3(0.326, 0.0, 0.0),
+      vec3(0.326, 0.0, 0.0),
+      vec3(0.0, 1.0, 1.0),
+      vec3(0.0, 0.0, 0.0),
+      vec2(-0.781, 1.425), vec2(0.393, 1.306), vec2(0.465, 1.631),
+      vec3(0.272, 0.439, 0.633), vec3(0.566, 0.149, 0.476), vec3(0.567, 0.223, 0.584)
     ),
     //head
     Triangle(
-      vec2[3](
-        vec2(0.502, 1.915),
-        vec2(1.574, 1.343),
-        vec2(0.323, 1.148)
-      ),
-      vec3[3](
-        vec3(0.209, 0.636, 0.323),
-        vec3(0.009, 0.723, 1.000),
-        vec3(0.137, 0.636, 0.445)
-      ),
-      float[3](0.0, 0.0, 0.0),
-      float[3](0.0, 0.0, 0.0),
-      float[3](0.0, 0.0, 0.0),
-      float[3](0.0, 0.0, 0.0),
-      float[3](1.0, 1.0, 1.0),
-      float[3](0.0, 0.0, 0.0)
+      vec3(0.0, 0.0, 0.0),
+      vec3(0.0, 0.0, 0.0),
+      vec3(0.0, 0.0, 0.0),
+      vec3(0.0, 0.0, 0.0),
+      vec3(1.0, 1.0, 1.0),
+      vec3(0.0, 0.0, 0.0),
+      vec2(0.502, 1.915), vec2(1.574, 1.343), vec2(0.323, 1.148),
+      vec3(0.209, 0.636, 0.323), vec3(0.009, 0.723, 1.000), vec3(0.137, 0.636, 0.445)
     ),
     //ear
     Triangle(
-      vec2[3](
-        vec2(0.160, 1.868),
-        vec2(0.447, 1.924),
-        vec2(0.387, 1.661)
-      ),
-      vec3[3](
-        vec3(0.209, 0.636, 0.323),
-        vec3(0.009, 0.723, 1.000),
-        vec3(0.137, 0.636, 0.445)
-      ),
-      float[3](0.0, 0.0, 0.0),
-      float[3](0.0, 0.0, 0.0),
-      float[3](0.0, 0.0, 0.0),
-      float[3](0.0, 0.0, 0.0),
-      float[3](1.0, 1.0, 1.0),
-      float[3](0.0, 0.0, 0.0)
+      vec3(0.0, 0.0, 0.0),
+      vec3(0.0, 0.0, 0.0),
+      vec3(0.0, 0.0, 0.0),
+      vec3(0.0, 0.0, 0.0),
+      vec3(1.0, 1.0, 1.0),
+      vec3(0.0, 0.0, 0.0),
+      vec2(0.160, 1.868), vec2(0.447, 1.924), vec2(0.387, 1.661),
+      vec3(0.209, 0.636, 0.323), vec3(0.009, 0.723, 1.000), vec3(0.137, 0.636, 0.445)
     )
   );
 
@@ -390,32 +306,41 @@ void main(void)
 
   if (layer > 4.0) {
     for (int i = 0; i < TRI_COUNT; i++) {
-      vec2[3] pos = vec2[3](
-          tris[i].positions[0] * scale + offset,
-          tris[i].positions[1] * scale + offset,
-          tris[i].positions[2] * scale + offset
-        );
+      Triangle tri = tris[i];
+      vec2 pos0 = tri.pos0 * scale + offset;
+      vec2 pos1 = tri.pos1 * scale + offset;
+      vec2 pos2 = tri.pos2 * scale + offset;
 
-      for (int j = 0; j < 3; j++) {
-        pos[j] += tris[i].back_left_weight[j] * vec2(back_fb, back_left_offset)
-            + tris[i].front_left_weight[j] * vec2(front_fb, front_left_offset)
-            + tris[i].back_right_weight[j] * vec2(-back_fb, back_right_offset)
-            + tris[i].front_right_weight[j] * vec2(-front_fb, front_right_offset)
-            + tris[i].head_weight[j] * vec2(0.0, head_offset)
-            + tris[i].tail_weight[j] * vec2(0.0, tail_offset);
-      }
+      pos0 += tri.back_left_weight[0] * vec2(back_fb, back_left_offset)
+          + tri.front_left_weight[0] * vec2(front_fb, front_left_offset)
+          + tri.back_right_weight[0] * vec2(-back_fb, back_right_offset)
+          + tri.front_right_weight[0] * vec2(-front_fb, front_right_offset)
+          + tri.head_weight[0] * vec2(0.0, head_offset)
+          + tri.tail_weight[0] * vec2(0.0, tail_offset);
 
-      float[3] e = float[3](
-          edge(puv, pos[1], pos[2]) / edge(pos[0], pos[1], pos[2]),
-          edge(puv, pos[2], pos[0]) / edge(pos[1], pos[2], pos[0]),
-          edge(puv, pos[0], pos[1]) / edge(pos[2], pos[0], pos[1])
-        );
+      pos1 += tri.back_left_weight[1] * vec2(back_fb, back_left_offset)
+          + tri.front_left_weight[1] * vec2(front_fb, front_left_offset)
+          + tri.back_right_weight[1] * vec2(-back_fb, back_right_offset)
+          + tri.front_right_weight[1] * vec2(-front_fb, front_right_offset)
+          + tri.head_weight[1] * vec2(0.0, head_offset)
+          + tri.tail_weight[1] * vec2(0.0, tail_offset);
 
-      if (e[0] > 0.0 && e[1] > 0.0 && e[2] > 0.0) {
+      pos2 += tri.back_left_weight[2] * vec2(back_fb, back_left_offset)
+          + tri.front_left_weight[2] * vec2(front_fb, front_left_offset)
+          + tri.back_right_weight[2] * vec2(-back_fb, back_right_offset)
+          + tri.front_right_weight[2] * vec2(-front_fb, front_right_offset)
+          + tri.head_weight[2] * vec2(0.0, head_offset)
+          + tri.tail_weight[2] * vec2(0.0, tail_offset);
+
+      float e0 = edge(puv, pos1, pos2) / edge(pos0, pos1, pos2);
+      float e1 = edge(puv, pos2, pos0) / edge(pos1, pos2, pos0);
+      float e2 = edge(puv, pos0, pos1) / edge(pos2, pos0, pos1);
+
+      if (e0 > 0.0 && e1 > 0.0 && e2 > 0.0) {
         //calculate barycentric coordinates
-        colour = e[0] * tris[i].colours[0]
-            + e[1] * tris[i].colours[1]
-            + e[2] * tris[i].colours[2];
+        colour = e0 * tri.col0
+            + e1 * tri.col1
+            + e2 * tri.col2;
       }
     }
 
